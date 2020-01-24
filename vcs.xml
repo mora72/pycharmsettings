@@ -10,6 +10,10 @@
           <option name="url" value="https://github.com/avidLearnerInProgress/python-automation-scripts.git" />
           <option name="userName" value="" />
         </UrlAndUserName>
+        <UrlAndUserName>
+          <option name="url" value="https://github.com/pabloads/curso-html5-css3-gustavo-guanabara" />
+          <option name="userName" value="" />
+        </UrlAndUserName>
       </list>
     </option>
     <option name="cloneParentDir" value="C:\Users\carlo\PycharmProjects" />
