@@ -120,3 +120,31 @@ def meiossaldo(listameios, listameiossaldo, mestrabalho, anotrabalho):
                     break
         elif opcao == 9:
             break
+
+
+def contasprevisto(listacontas, listacontasprevisto, mestrabalho, anotrabalho):
+    while True:
+        system("cls")
+        cabecalho('PREVISÃO DE GASTOS POR CONTA')
+        for x in listacontasprevisto:
+            if x["mes"] == mestrabalho and x["ano"] == anotrabalho:
+                print(f'{x["nome"]} - {x["valorprevisto"]}')
+        linha()
+        opcao = leiaint('Digite 1 - Cadastrar; 2 - Deletar ou 9 - Sair: ')
+        if opcao == 1:
+            nomeconta = leiaconta('Digite nome da conta: ', listacontas)
+            valorprevisto = leiafloat('Digite o valor previsto: ')
+            registro = {'nome': nomeconta, 'valorprevisto': valorprevisto, 'mes': mestrabalho, 'ano': anotrabalho}
+            listacontasprevisto.append(registro.copy())
+            print('REGISTRO INSERIDO')
+            aguardaenter()
+        elif opcao == 2:
+            nomeconta = leiaconta('Digite nome da conta: ', listacontas)
+            for c, x in enumerate(listacontasprevisto):
+                if x["mes"] == mestrabalho and x["ano"] == anotrabalho and x["nome"] == nomeconta:
+                    print('REGISTRO REMOVIDO !')
+                    del listacontasprevisto[c]
+                    aguardaenter()
+                    break
+        elif opcao == 9:
+            break

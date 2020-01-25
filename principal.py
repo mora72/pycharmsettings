@@ -16,6 +16,9 @@ listameiossaldo = arqlistameiossaldo.ler()
 arqlistacontas = Arquivolista('/Users/carlo/PycharmProjects/fc/basecontas.pck1', 'Contas')
 listacontas = arqlistacontas.ler()
 
+arqlistacontasprevisto = Arquivolista('/Users/carlo/PycharmProjects/fc/basecontasprevisto.pck1', 'ContasPrevisto')
+listacontasprevisto = arqlistacontasprevisto.ler()
+
 arqlistatrans = Arquivolista('/Users/carlo/PycharmProjects/fc/basetrans.pck1', 'Transações')
 listatrans = arqlistatrans.ler()
 
@@ -53,8 +56,9 @@ while True:
                            'Deletar Tipo de Conta de Receita ou Despesa',
                            'Alterar Mes e/ou Ano de Trabalho',
                            'Saldo de Contas Corrente',
+                           'Gasto Previsto por Tipo de Conta',
                            'Voltar ao Menu Principal'])
-            if opcao1 == 9:
+            if opcao1 == 10:
                 system("cls")
                 break
             if opcao1 == 1:
@@ -73,6 +77,8 @@ while True:
                 anotrabalho, mestrabalho = alteramesanotrabalho()
             if opcao1 == 8:
                 meiossaldo(listameios, listameiossaldo, mestrabalho, anotrabalho)
+            if opcao1 == 9:
+                contasprevisto(listacontas, listacontasprevisto, mestrabalho, anotrabalho)
     if opcao == 2:
         while True:
             system("cls")
@@ -95,10 +101,10 @@ while True:
             if opcao2 == 4:
                 exibetransmeiosaldo(listatrans, listameios, listameiossaldo, mestrabalho, anotrabalho)
     if opcao == 3:
-        resumomes(listatrans, mestrabalho, anotrabalho, listacontas)
+        resumomes(listatrans, mestrabalho, anotrabalho, listacontas, listacontasprevisto)
 
 arqlistameios.gravar(listameios)
 arqlistameiossaldo.gravar(listameiossaldo)
 arqlistacontas.gravar(listacontas)
+arqlistacontasprevisto.gravar(listacontasprevisto)
 arqlistatrans.gravar(listatrans)
-print('tchau')

@@ -1,14 +1,19 @@
 from lib.interface import *
 
 
-def resumomes(listatrans, mestrabalho, anotrabalho, listacontas):
+def resumomes(listatrans, mestrabalho, anotrabalho, listacontas, listacontasprevisto):
     print('')
     listaresumo = []
     listacontasord = sorted(listacontas, key=lambda i: i['nome'])
     for x in listacontasord:
         listaresumo.append(x['nome'])
         listaresumo.append(float(0))
-    listaresumo.index('Transf')
+        vlrprevtemp = list(filter(lambda conta: conta['nome'] == x['nome'], listacontasprevisto))
+        if len(vlrprevtemp) > 0:
+            vlrprev = vlrprevtemp[0]['valorprevisto']
+        else:
+            vlrprev = 0
+        listaresumo.append(vlrprev)
     for x in listatrans:
         if mestrabalho == x['mes'] and anotrabalho == x['ano']:
             pos = listaresumo.index(x['conta'])
@@ -22,14 +27,14 @@ def resumomes(listatrans, mestrabalho, anotrabalho, listacontas):
     totaloutros = 0
     totalcartao = 0
     tipoconta = ''
+    gastoreal = 0
     for c, x in enumerate(listaresumo):
-        if c % 2 == 0:
+        if c % 3 == 0 or c == 0:
             tipoconta = list(filter(lambda conta: conta["nome"] == x, listacontas))[0]["tipo"]
-            if tipoconta == 'D':
-                print(f'{x:<30} - ', end='')
-        else:
-            if tipoconta == 'D':
-                print(f'{x:>8.2f}')
+            print(f'{x:<30} ', end="")
+        elif (c-1) % 3 == 0 or (c-1) == 0:
+            gastoreal = x
+            print(f'{x:>10,.2f} ', end="")
             totalgeral += x
             if tipoconta == 'R':
                 totalreceitas += x
@@ -43,7 +48,11 @@ def resumomes(listatrans, mestrabalho, anotrabalho, listacontas):
                 totalcartao += x
             else:
                 totaloutros += x
-    linha()
+        else:
+            gastoprev = x
+            vlrdelta = gastoreal - gastoprev
+            print(f'{gastoprev:>10,.2f} {vlrdelta:>10,.2f}')
+    print(linha())
     print(f'TOTAL GERAL: {totalgeral:>8.2f}')
     print(f'TOTAL DESPESAS: {totaldespesas:>8.2f}')
     print(f'TOTAL RECEITAS: {totalreceitas:>8.2f}')
