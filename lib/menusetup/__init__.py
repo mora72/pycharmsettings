@@ -9,8 +9,9 @@ def cadmeios(lista):
     codmeio = input('Digite código do Meio de Transação (2 letras): ')
     nomemeio = input('Digite o nome do Meio de Transacao: ')
     while True:
-        tipomeio = input('Digite tipo do Meio de Transação (CC - Conta Corrente; DI - Dinheiro; CA - Cartão): ')
-        if tipomeio in ('CC', 'cc', 'DI', 'di', 'CA', 'ca'):
+        tipomeio = input('Digite tipo do Meio de Transação'
+                         ' (CC - Conta Corrente; DI - Dinheiro; CA - Cartão; PR - Provisão): ')
+        if tipomeio in ('CC', 'cc', 'DI', 'di', 'CA', 'ca', 'PR', 'pr'):
             break
         print('Tipo Inválido !')
     registromeio = {'cod': codmeio, 'nome': nomemeio, 'tipo': tipomeio}
@@ -144,6 +145,34 @@ def contasprevisto(listacontas, listacontasprevisto, mestrabalho, anotrabalho):
                 if x["mes"] == mestrabalho and x["ano"] == anotrabalho and x["nome"] == nomeconta:
                     print('REGISTRO REMOVIDO !')
                     del listacontasprevisto[c]
+                    aguardaenter()
+                    break
+        elif opcao == 9:
+            break
+
+
+def contaprovisaosaldo(listacontas, listacontaprovisaosaldo, mestrabalho, anotrabalho):
+    while True:
+        system("cls")
+        cabecalho('SALDO DE CONTAS PROVISAO')
+        for x in listacontaprovisaosaldo:
+            if x["mes"] == mestrabalho and x["ano"] == anotrabalho:
+                print(f'{x["nome"]} - {x["saldo"]}')
+        linha()
+        opcao = leiaint('Digite 1 - Cadastrar; 2 - Deletar ou 9 - Sair: ')
+        if opcao == 1:
+            nomeconta = leiaconta('Digite nome da conta: ', listacontas)
+            saldoconta = leiafloat('Digite o saldo da conta: ')
+            registro = {'nome': nomeconta, 'saldo': saldoconta, 'mes': mestrabalho, 'ano': anotrabalho}
+            listacontaprovisaosaldo.append(registro.copy())
+            print('REGISTRO INSERIDO')
+            aguardaenter()
+        elif opcao == 2:
+            nomeconta = leiaconta('Digite nome da conta: ', listacontas)
+            for c, x in enumerate(listacontaprovisaosaldo):
+                if x["mes"] == mestrabalho and x["ano"] == anotrabalho and x["nome"] == nomeconta:
+                    print('REGISTRO REMOVIDO !')
+                    del listacontaprovisaosaldo[c]
                     aguardaenter()
                     break
         elif opcao == 9:
