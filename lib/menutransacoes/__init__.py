@@ -38,12 +38,20 @@ def lanctrans(lista, anotrabalho, mestrabalho, listameios, listacontas):
             break
 
 
-def exibetrans(lista):
+def exibetrans(lista, mes, ano, listacontas):
     system("cls")
     cabecalho('LANCAMENTOS DO MES E ANO DE TRABALHO')
+    opcao = leiaint('Digite 1 para ver todos ou 2 para uma conta específica: ')
+    if opcao == 1:
+        nomeconta = '*'
+    elif opcao == 2:
+        nomeconta = leiaconta('Digite nome da conta: ', listacontas)
+    else:
+        nomeconta = ''
     for c, x in enumerate(lista):
-        print(f'ID: {c:2} - {x["dia"]:2}/{x["mes"]:2}/{x["ano"]} - ', end='')
-        print(f'{x["valor"]:>10.2f} - {x["conta"]:<20} - {x["descr"]:<50} - {x["meio"]}')
+        if x["mes"] == mes and x["ano"] == ano and (x["conta"] == nomeconta or nomeconta == '*'):
+            print(f'ID: {c:2} - {x["dia"]:2}/{x["mes"]:2}/{x["ano"]} - ', end='')
+            print(f'{x["valor"]:>10.2f} - {x["conta"]:<20} - {x["descr"]:<50} - {x["meio"]}')
     aguardaenter()
 
 
@@ -64,8 +72,8 @@ def exibetransmeiosaldo(listatrans, listameios, listameiossaldo, mestrabalho, an
     aguardaenter()
 
 
-def deletatrans(lista):
-    exibetrans(lista)
+def deletatrans(lista, mes, ano, listacontas):
+    exibetrans(lista, mes, ano, listacontas)
     cabecalho('Deletar Meio de Transação Financeira')
     while True:
         idtransacao = leiaint('Digite ID da Transação que deseja deletar ou -1 para desistir: ')
