@@ -102,9 +102,9 @@ while True:
             if opcao2 == 1:
                 lanctrans(listatrans, anotrabalho, mestrabalho, listameios, listacontas)
             if opcao2 == 2:
-                exibetrans(listatrans)
+                exibetrans(listatrans, mestrabalho, anotrabalho, listacontas)
             if opcao2 == 3:
-                deletatrans(listatrans)
+                deletatrans(listatrans, mestrabalho, anotrabalho, listacontas)
             if opcao2 == 4:
                 exibetransmeiosaldo(listatrans, listameios, listameiossaldo, mestrabalho, anotrabalho)
     if opcao == 3:

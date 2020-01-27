@@ -19,45 +19,50 @@ def resumomes(listatrans, mestrabalho, anotrabalho, listacontas, listacontasprev
             pos = listaresumo.index(x['conta'])
             listaresumo[pos+1] = listaresumo[pos+1] + x['valor']
     cabecalho('RESUMO DO MES POR CONTA')
-    totalgeral = 0
     totaldespesas = 0
     totalreceitas = 0
-    totaltransf = 0
     totalemprestimos = 0
-    totaloutros = 0
-    totalcartao = 0
     tipoconta = ''
     gastoreal = 0
+    cabecalho('RECEITAS')
     for c, x in enumerate(listaresumo):
         if c % 3 == 0 or c == 0:
             tipoconta = list(filter(lambda conta: conta["nome"] == x, listacontas))[0]["tipo"]
-            print(f'{x:<30} ', end="")
-        elif (c-1) % 3 == 0 or (c-1) == 0:
-            gastoreal = x
-            print(f'{x:>10,.2f} ', end="")
-            totalgeral += x
             if tipoconta == 'R':
+                print(f'{x:<30} ', end="")
+        elif (c-1) % 3 == 0 or (c-1) == 0:
+            if tipoconta == 'R':
+                gastoreal = x
+                print(f'{x:>10,.2f} ', end="")
                 totalreceitas += x
-            elif tipoconta == 'D':
-                totaldespesas += x
-            elif tipoconta == 'E':
-                totalemprestimos += x
-            elif tipoconta == 'T':
-                totaltransf += x
-            elif tipoconta == 'C':
-                totalcartao += x
-            else:
-                totaloutros += x
         else:
-            gastoprev = x
-            vlrdelta = gastoreal - gastoprev
-            print(f'{gastoprev:>10,.2f} {vlrdelta:>10,.2f}')
+            if tipoconta == 'R':
+                gastoprev = x
+                vlrdelta = gastoreal - gastoprev
+                print(f'{gastoprev:>10,.2f} {vlrdelta:>10,.2f}')
     print(linha())
-    print(f'TOTAL GERAL: {totalgeral:>8.2f}')
-    print(f'TOTAL DESPESAS: {totaldespesas:>8.2f}')
     print(f'TOTAL RECEITAS: {totalreceitas:>8.2f}')
-    print(f'TOTAL TRANSFERÊNCIAS: {totaltransf:>8.2f}')
+
+    cabecalho('DESPESAS')
+    for c, x in enumerate(listaresumo):
+        if c % 3 == 0 or c == 0:
+            tipoconta = list(filter(lambda conta: conta["nome"] == x, listacontas))[0]["tipo"]
+            if tipoconta in ('D', 'E'):
+                print(f'{x:<30} ', end="")
+        elif (c-1) % 3 == 0 or (c-1) == 0:
+            if tipoconta in ('D', 'E'):
+                gastoreal = x
+                print(f'{x:>10,.2f} ', end="")
+                if tipoconta == 'D':
+                    totaldespesas += x
+                elif tipoconta == 'E':
+                    totalemprestimos += x
+        else:
+            if tipoconta in ('D', 'E'):
+                gastoprev = x
+                vlrdelta = gastoreal - gastoprev
+                print(f'{gastoprev:>10,.2f} {vlrdelta:>10,.2f}')
+    print(linha())
+    print(f'TOTAL DESPESAS: {totaldespesas:>8.2f}')
     print(f'TOTAL EMPRÉSTIMOS: {totalemprestimos:>8.2f}')
-    print(f'TOTAL CARTÃO: {totalcartao:>8.2f}')
-    print(f'TOTAL OUTROS: {totaloutros:>8.2f}')
     aguardaenter()

@@ -58,8 +58,9 @@ def cadcontas(lista):
         nomeconta = input('Digite o nome da conta de receita ou despesa ou "Sair" para SAIR : ')
         if nomeconta in ('Sair', 'SAIR', 'sair'):
             break
-        tipoconta = input('Digite o tipo da conta (R = Receita; D = Despesa; '
-                          'T = Transferência; E = Empréstimo; C = PagtoCartão: ').upper()
+        tipoconta = input('Digite o tipo da conta (R = Receita; D = Despesa; T = Transferência; '
+                          'E = Empréstimo; C = PagtoCartão; RI = Receita Investimento;'
+                          ' DI = Despesa Investimento ').upper()
         registroconta = {'nome': nomeconta, 'tipo': tipoconta}
         lista.append(registroconta.copy())
         print('REGISTRO INSERIDO')
