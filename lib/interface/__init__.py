@@ -7,22 +7,31 @@ def linha(tam=42):
     return '-' * tam
 
 
-def cabecalho(txt):
-    print(linha())
-    print(f'{txt.center(42)}')
-    print(linha())
+def espacos(tam=10):
+    return ' ' * tam
 
 
-def menu(lista):
+def bordasup(tam=10):
+    for c in range(1, tam):
+        print('')
+
+
+def cabecalho(txt, tam=42, borda=50):
+    print(f'{espacos(borda)}{linha(tam)}')
+    print(f'{espacos(borda)}{txt.center(tam)}')
+    print(f'{espacos(borda)}{linha(tam)}')
+
+
+def menu(lista, bordae=50):
     for c, x in enumerate(lista):
-        print(f'{c + 1} - {x}')
-    print(linha())
+        print(f'{espacos(bordae)}[ {c + 1} ] - {x}')
+    print(f'{espacos(bordae)}{linha()}')
     while True:
-        op = leiaint('Digite sua opção: ')
+        op = leiaint(f'{espacos(bordae)}Digite sua opção: ')
         if 1 <= op <= len(lista):
             break
         else:
-            print('digite opcao valida !!!')
+            print(f'{espacos(bordae)}digite opcao valida !!!')
     return op
 
 

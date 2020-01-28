@@ -33,6 +33,7 @@ mestrabalho = mesatual
 
 while True:
     system("cls")
+    bordasup()
     cabecalho(f'ANO TRABALHO: {anotrabalho} - MES TRABALHO: {mestrabalho}')
     cabecalho('MENU PRINCIPAL')
     opcao = menu(['MENU SETUP',
