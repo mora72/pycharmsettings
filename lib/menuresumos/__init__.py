@@ -22,8 +22,6 @@ def resumomes(listatrans, mestrabalho, anotrabalho, listacontas, listacontasprev
     totrecreal = 0
     totrecprev = 0
     totrecdelta = 0
-    totaldespesas = 0
-    totalemprestimos = 0
     tipoconta = ''
     gastoreal = 0
     cabecalho('RECEITAS', 63, 0)
@@ -49,6 +47,10 @@ def resumomes(listatrans, mestrabalho, anotrabalho, listacontas, listacontasprev
     print(f'{"TOTAL RECEITAS:":<30} {totrecreal:>10,.2f} {totrecprev:>10,.2f} {totrecdelta:>10,.2f}')
     aguardaenter()
 
+    totdesreal = 0
+    totdesprev = 0
+    totdesdelta = 0
+    totalemprestimos = 0
     cabecalho('DESPESAS', 63, 0)
     print(f'{"CONTA":<30} {"REALIZADO":>10} {"PREVISTO":>10} {"DELTA":>10}')
     for c, x in enumerate(listaresumo):
@@ -61,15 +63,23 @@ def resumomes(listatrans, mestrabalho, anotrabalho, listacontas, listacontasprev
                 gastoreal = x
                 print(f'{x:>10,.2f} ', end="")
                 if tipoconta == 'D':
-                    totaldespesas += x
+                    totdesreal += x
                 elif tipoconta == 'E':
                     totalemprestimos += x
         else:
             if tipoconta in ('D', 'E'):
                 gastoprev = x
+                totdesprev += x
                 vlrdelta = gastoreal - gastoprev
+                totdesdelta += vlrdelta
                 print(f'{gastoprev:>10,.2f} {vlrdelta:>10,.2f}')
     print(linha(63))
-    print(f'TOTAL DESPESAS:    {totaldespesas:>8,.2f}')
+    print(f'{"TOTAL RECEITAS:":<30} {totrecreal:>10,.2f} {totrecprev:>10,.2f} {totrecdelta:>10,.2f}')
+    print(f'{"TOTAL DESPESAS:":<30} {totdesreal:>10,.2f} {totdesprev:>10,.2f} {totdesdelta:>10,.2f}')
+    print(linha(63))
+    print(f'{"DELTA TOTAL:":<30} {(totrecreal+totdesreal):>10,.2f} {(totrecprev+totdesprev):>10,.2f}'
+          f' {(totrecdelta+totdesdelta):>10,.2f}')
+    print(linha(63))
     print(f'TOTAL EMPRÉSTIMOS: {totalemprestimos:>8,.2f}')
+    print(linha(63))
     aguardaenter()

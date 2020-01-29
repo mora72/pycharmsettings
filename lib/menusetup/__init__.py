@@ -152,19 +152,38 @@ def contasprevisto(listacontas, listacontasprevisto, mestrabalho, anotrabalho):
             break
 
 
-def contaprovisaosaldo(listacontas, listacontaprovisaosaldo, mestrabalho, anotrabalho):
+def contaprovisaosaldo(listacontas, listacontaprovisaosaldo, mestrabalho, anotrabalho, listatrans):
     while True:
         system("cls")
         cabecalho('SALDO DE CONTAS PROVISAO')
+        saldoinirec = realizadorec = saldofimrec = 0
+        saldoinides = realizadodes = saldofimdes = 0
+        print(f'{"CONTA":<30} {"SALDO INI":>10} - {"REALIZADO":>10} {"SALDO FIM":>10}')
         for x in listacontaprovisaosaldo:
             if x["mes"] == mestrabalho and x["ano"] == anotrabalho:
-                print(f'{x["nome"]} - {x["saldo"]}')
-        linha()
-        opcao = leiaint('Digite 1 - Cadastrar; 2 - Deletar ou 9 - Sair: ')
+                tipoconta = list(filter(lambda conta: conta["nome"] == x["nome"], listacontas))[0]["tipo"]
+                if tipoconta in ('R', 'E'):
+                    saldoinirec += x["saldoini"]
+                    saldofimrec += x["saldofim"]
+                    realizadorec += x['realizado']
+                elif tipoconta == 'D':
+                    saldoinides += x["saldoini"]
+                    saldofimdes += x["saldofim"]
+                    realizadodes += x['realizado']
+                print(f'{x["nome"]:<30} {x["saldoini"]:>10,.2f} {x["realizado"]:>10,.2f} {x["saldofim"]:>10,.2f}')
+        print(linha(80))
+        print(f'{"TOTAL RECEITAS":<30} {saldoinirec:>10,.2f} {realizadorec:>10,.2f} {saldofimrec:>10,.2f}')
+        print(f'{"TOTAL DESPESAS":<30} {saldoinides:>10,.2f} {realizadodes:>10,.2f} {saldofimdes:>10,.2f}')
+        print(linha(80))
+        print(f'{"TOTAL PROVISAO":<30} {(saldoinirec+saldoinides):>10,.2f} {(realizadorec+realizadodes):>10,.2f}'
+              f' {(saldofimrec+saldofimdes):>10,.2f}')
+        print(linha(80))
+        opcao = leiaint('Digite 1 - Cadastrar; 2 - Deletar; 3 - Update ou 9 - Sair: ')
         if opcao == 1:
             nomeconta = leiaconta('Digite nome da conta: ', listacontas)
             saldoconta = leiafloat('Digite o saldo da conta: ')
-            registro = {'nome': nomeconta, 'saldo': saldoconta, 'mes': mestrabalho, 'ano': anotrabalho}
+            registro = {'nome': nomeconta, 'saldoini': saldoconta, 'mes': mestrabalho, 'ano': anotrabalho,
+                        'realizado': 0, 'saldofim': 0}
             listacontaprovisaosaldo.append(registro.copy())
             print('REGISTRO INSERIDO')
             aguardaenter()
@@ -176,5 +195,15 @@ def contaprovisaosaldo(listacontas, listacontaprovisaosaldo, mestrabalho, anotra
                     del listacontaprovisaosaldo[c]
                     aguardaenter()
                     break
+        elif opcao == 3:
+            for x in listacontaprovisaosaldo:
+                if x['mes'] == mestrabalho and x['ano'] == anotrabalho:
+                    realtemp = 0
+                    for y in listatrans:
+                        if y['mes'] == mestrabalho and y['ano'] == anotrabalho \
+                                and y['conta'] == x['nome'] and y['meio'] == 'PR':
+                            realtemp -= y['valor']
+                    x['realizado'] = realtemp
+                    x['saldofim'] = x['saldoini'] + realtemp
         elif opcao == 9:
             break

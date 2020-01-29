@@ -86,7 +86,7 @@ while True:
             if opcao1 == 9:
                 contasprevisto(listacontas, listacontasprevisto, mestrabalho, anotrabalho)
             if opcao1 == 10:
-                contaprovisaosaldo(listacontas, listacontaprovisaosaldo, mestrabalho, anotrabalho)
+                contaprovisaosaldo(listacontas, listacontaprovisaosaldo, mestrabalho, anotrabalho, listatrans)
     if opcao == 2:
         while True:
             system("cls")
