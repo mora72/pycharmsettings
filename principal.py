@@ -5,6 +5,7 @@ from lib.arquivos import *
 from lib.menusetup import *
 from lib.menutransacoes import *
 from lib.menuresumos import *
+from lib.menuinvestimentos import *
 path.append('C:/Users/carlo/PycharmProjects/fc)')
 
 arqlistameios = Arquivolista('/Users/carlo/PycharmProjects/fc/basemeios.pck1', 'Meios')
@@ -25,6 +26,10 @@ listacontaprovisaosaldo = arqlistacontaprovisaosaldo.ler()
 
 arqlistatrans = Arquivolista('/Users/carlo/PycharmProjects/fc/basetrans.pck1', 'Transações')
 listatrans = arqlistatrans.ler()
+
+arqlistainvest = Arquivolista('/Users/carlo/PycharmProjects/fc/baseinvest.pck1', 'Investimentos')
+listainvest = arqlistainvest.ler()
+
 
 anoatual = date.today().year
 mesatual = date.today().month
@@ -110,6 +115,8 @@ while True:
                 exibetransmeiosaldo(listatrans, listameios, listameiossaldo, mestrabalho, anotrabalho)
     if opcao == 3:
         resumomes(listatrans, mestrabalho, anotrabalho, listacontas, listacontasprevisto)
+    if opcao == 6:
+        newinvest(listainvest, mestrabalho, anotrabalho)
 
 arqlistameios.gravar(listameios)
 arqlistameiossaldo.gravar(listameiossaldo)
@@ -117,3 +124,4 @@ arqlistacontas.gravar(listacontas)
 arqlistacontasprevisto.gravar(listacontasprevisto)
 arqlistacontaprovisaosaldo.gravar(listacontaprovisaosaldo)
 arqlistatrans.gravar(listatrans)
+arqlistainvest.gravar(listainvest)
