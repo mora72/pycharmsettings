@@ -30,6 +30,8 @@ listatrans = arqlistatrans.ler()
 arqlistainvest = Arquivolista('/Users/carlo/PycharmProjects/fc/baseinvest.pck1', 'Investimentos')
 listainvest = arqlistainvest.ler()
 
+arqlistaemprest = Arquivolista('/Users/carlo/PycharmProjects/fc/baseemprest.pck1', 'Emprestimos')
+listaemprest = arqlistaemprest.ler()
 
 anoatual = date.today().year
 mesatual = date.today().month
@@ -67,9 +69,8 @@ while True:
                            'Alterar Mes e/ou Ano de Trabalho',
                            'Saldo de Contas Corrente e Dinheiro',
                            'Gasto Previsto por Tipo de Conta',
-                           'Saldo de Contas Provisão',
                            'Voltar ao Menu Principal'])
-            if opcao1 == 11:
+            if opcao1 == 10:
                 system("cls")
                 break
             if opcao1 == 1:
@@ -90,8 +91,7 @@ while True:
                 meiossaldo(listameios, listameiossaldo, mestrabalho, anotrabalho)
             if opcao1 == 9:
                 contasprevisto(listacontas, listacontasprevisto, mestrabalho, anotrabalho)
-            if opcao1 == 10:
-                contaprovisaosaldo(listacontas, listacontaprovisaosaldo, mestrabalho, anotrabalho, listatrans)
+
     if opcao == 2:
         while True:
             system("cls")
@@ -115,8 +115,31 @@ while True:
                 exibetransmeiosaldo(listatrans, listameios, listameiossaldo, mestrabalho, anotrabalho)
     if opcao == 3:
         resumomes(listatrans, mestrabalho, anotrabalho, listacontas, listacontasprevisto)
+    if opcao == 5:
+        contaprovisaosaldo(listacontas, listacontaprovisaosaldo, mestrabalho, anotrabalho, listatrans)
     if opcao == 6:
-        newinvest(listainvest, mestrabalho, anotrabalho)
+        while True:
+            system("cls")
+            cabecalho(f'ANO TRABALHO: {anotrabalho} - MES TRABALHO: {mestrabalho}')
+            cabecalho('MENU INVESTIMENTOS')
+            opcao2 = menu(['Lançamento de novos Investimentos',
+                           'Listar Investimentos',
+                           'Deletar Investimentos',
+                           'Alterar saldo final de Investimento',
+                           'Voltar ao Menu Principal'])
+            if opcao2 == 5:
+                system("cls")
+                break
+            if opcao2 == 1:
+                newinvest(listainvest, mestrabalho, anotrabalho)
+            if opcao2 == 2:
+                exibeinvest(listainvest, mestrabalho, anotrabalho)
+            if opcao2 == 3:
+                deletainvest(listainvest, mestrabalho, anotrabalho)
+            if opcao2 == 4:
+                updateinvest(listainvest, mestrabalho, anotrabalho)
+    if opcao == 7:
+        emprestsaldo(listaemprest, mestrabalho, anotrabalho, listatrans)
 
 arqlistameios.gravar(listameios)
 arqlistameiossaldo.gravar(listameiossaldo)
@@ -125,3 +148,4 @@ arqlistacontasprevisto.gravar(listacontasprevisto)
 arqlistacontaprovisaosaldo.gravar(listacontaprovisaosaldo)
 arqlistatrans.gravar(listatrans)
 arqlistainvest.gravar(listainvest)
+arqlistaemprest.gravar(listaemprest)

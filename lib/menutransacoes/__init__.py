@@ -9,6 +9,7 @@ def lanctrans(lista, anotrabalho, mestrabalho, listameios, listacontas):
     cabecalho('Lançamento de Transações')
     meiotrans = leiameio('Digite o meio desta transação: ', listameios)
     while True:
+        nomeemprest = ''
         cabecalho(f'NOVO REGISTRO DO MEIO: {meiotrans}')
         diatrans = leiadia('Digite o dia da transação: ', mestrabalho, anotrabalho)
         valortrans = leiafloat('Digite o valor da transação: ')
@@ -16,12 +17,15 @@ def lanctrans(lista, anotrabalho, mestrabalho, listameios, listacontas):
         descrtrans = input('Digite uma descrição para esta transação: ')
         if descrtrans == '':
             descrtrans = contatrans
+        if contatrans == 'Empréstimo':
+            nomeemprest = input('Digite o nome do Empréstimo: ')
         cabecalho('CONFIRMA REGISTRO ? ')
         print(f'data...: {diatrans:2}/{mestrabalho:2}/{anotrabalho}')
         print(f'meio..: {meiotrans}')
         print(f'conta.: {contatrans}')
         print(f'valor.: {valortrans}')
         print(f'descrição...: {descrtrans}')
+        print(f'empréstimo...: {nomeemprest}')
         opcao = input('Sim (S) ou Não (N) ? ')
         if opcao in 'Ss':
             registrotrans = {'ano': anotrabalho,
@@ -30,7 +34,8 @@ def lanctrans(lista, anotrabalho, mestrabalho, listameios, listacontas):
                              'valor': valortrans,
                              'conta': contatrans,
                              'descr': descrtrans,
-                             'meio': meiotrans}
+                             'meio': meiotrans,
+                             'nomeemprest': nomeemprest}
             lista.append(registrotrans.copy())
             print('REGISTRO INSERIDO')
         opcao = input('Lançar outra transação? Sim (S) ou Não (N) ? ')
@@ -50,8 +55,12 @@ def exibetrans(lista, mes, ano, listacontas):
         nomeconta = ''
     for c, x in enumerate(lista):
         if x["mes"] == mes and x["ano"] == ano and (x["conta"] == nomeconta or nomeconta == '*'):
-            print(f'ID: {c:2} - {x["dia"]:2}/{x["mes"]:2}/{x["ano"]} - ', end='')
-            print(f'{x["valor"]:>10.2f} - {x["conta"]:<20} - {x["descr"]:<50} - {x["meio"]}')
+            if nomeconta == 'Empréstimo' or nomeconta == '*':
+                print(f'ID: {c:2} - {x["dia"]:2}/{x["mes"]:2}/{x["ano"]} - ', end='')
+                print(f'{x["valor"]:>10.2f} - {x["conta"]:<20} - {x["descr"]:<50} - {x["meio"]} - {x["nomeemprest"]}')
+            else:
+                print(f'ID: {c:2} - {x["dia"]:2}/{x["mes"]:2}/{x["ano"]} - ', end='')
+                print(f'{x["valor"]:>10.2f} - {x["conta"]:<20} - {x["descr"]:<50} - {x["meio"]}')
     aguardaenter()
 
 
