@@ -3,11 +3,12 @@ from os import system
 from datetime import date
 
 
-def linha(tam=42):
-    return '-' * tam
+def linha(tam=42, borda=50):
+    rettemp = "-" * tam
+    return f'{espacos(borda)}{rettemp}'
 
 
-def espacos(tam=10):
+def espacos(tam=50):
     return ' ' * tam
 
 
@@ -17,17 +18,17 @@ def bordasup(tam=10):
 
 
 def cabecalho(txt, tam=42, borda=50):
-    print(f'{espacos(borda)}{linha(tam)}')
+    print(f'{linha(tam, borda)}')
     print(f'{espacos(borda)}{txt.center(tam)}')
-    print(f'{espacos(borda)}{linha(tam)}')
+    print(f'{linha(tam, borda)}')
 
 
 def menu(lista, bordae=50):
     for c, x in enumerate(lista):
         print(f'{espacos(bordae)}[ {c + 1} ] - {x}')
-    print(f'{espacos(bordae)}{linha()}')
+    print(f'{linha(42, bordae)}')
     while True:
-        op = leiaint(f'{espacos(bordae)}Digite sua opção: ')
+        op = leiaint('Digite sua opção: ', bordae)
         if 1 <= op <= len(lista):
             break
         else:
@@ -35,29 +36,29 @@ def menu(lista, bordae=50):
     return op
 
 
-def leiaint(msg):
+def leiaint(msg, borda=50):
     while True:
         try:
-            nro = int(input(msg))
+            nro = int(input(f'{espacos(borda)}{msg}'))
         except (TypeError, ValueError) as err:
-            print(f'nro invalido! {err.args}')
+            print(f'{espacos(borda)}nro invalido! {err.args}')
         else:
             return nro
 
 
-def leiafloat(msg):
+def leiafloat(msg, borda=50):
     while True:
         try:
-            nro = float(input(msg))
+            nro = float(input(f'{espacos(borda)}{msg}'))
         except (ValueError, TypeError) as err:
-            print(f'nro invalido! {err}')
+            print(f'{espacos(borda)}nro invalido! {err}')
         else:
             return nro
 
 
-def aguardaenter():
+def aguardaenter(borda=50):
     print('')
-    print('DIGITE ENTER PARA CONTINUAR !')
+    print(f'{espacos(borda)}DIGITE ENTER PARA CONTINUAR !')
     input('')
 
 
@@ -66,13 +67,13 @@ def exibecontas(lista):
     cabecalho('CONTAS DE RECEITA OU DESPESA CADASTRADOS')
     listaord = sorted(lista, key=lambda i: (i['tipo'], i['nome']))
     for x in listaord:
-        print(f'{x["nome"]:<30} - {x["tipo"]}')
+        print(f'{espacos(50)}{x["nome"]:<30} - {x["tipo"]}')
     aguardaenter()
 
 
-def leiaconta(msg, listacontas):
+def leiaconta(msg, listacontas, borda=50):
     while True:
-        conta = input(msg)
+        conta = input(f'{espacos(borda)}{msg}')
         achou = False
         for x in listacontas:
             if conta == x['nome']:
@@ -81,8 +82,8 @@ def leiaconta(msg, listacontas):
         if achou:
             break
         else:
-            print('Conta não encontrada !')
-            opcao = input('Digite Enter para informar novamente ou 9 para ver lista de contas: ')
+            print(f'{espacos(borda)}Conta não encontrada !')
+            opcao = input(f'{espacos(borda)}Digite Enter para informar novamente ou 9 para ver lista de contas: ')
             if opcao == '9':
                 exibecontas(listacontas)
     return conta
@@ -104,7 +105,7 @@ def e_bisexto(ano):
     return resultado
 
 
-def leiadia(msg, mes, ano):
+def leiadia(msg, mes, ano, borda=50):
     while True:
         dia = leiaint(msg)
         if mes in (1, 3, 5, 7, 8, 10, 12):
@@ -119,13 +120,13 @@ def leiadia(msg, mes, ano):
         if 1 <= dia <= qtdedias:
             break
         else:
-            print('Dia Incorreto !')
+            print(f'{espacos(borda)}Dia Incorreto !')
     return dia
 
 
-def leiameio(msg, listameios):
+def leiameio(msg, listameios, borda=50):
     while True:
-        meio = input(msg)
+        meio = input(f'{espacos(borda)}{msg}')
         achou = False
         for x in listameios:
             if meio == x['cod']:
@@ -134,12 +135,12 @@ def leiameio(msg, listameios):
         if achou:
             break
         else:
-            print('Meio não encontrado !')
-            opcao = input('Digite Enter para informar novamente ou 9 para ver lista de meios: ')
+            print(f'{espacos(borda)}Meio não encontrado !')
+            opcao = input(f'{espacos(borda)}Digite Enter para informar novamente ou 9 para ver lista de meios: ')
             if opcao == '9':
                 system("cls")
                 cabecalho('MEIOS CADASTRADOS')
                 for x in listameios:
-                    print(f'{x["cod"]} - {x["nome"]}')
+                    print(f'{espacos(borda)}{x["cod"]} - {x["nome"]}')
                 aguardaenter()
     return meio
