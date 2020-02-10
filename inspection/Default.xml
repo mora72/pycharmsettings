@@ -15,6 +15,7 @@
         <option value="list.__getitem__" />
         <option value="mainapp.models.Local.objects" />
         <option value="mainapp.models.Irmao.objects" />
+        <option value="googlemaps.client.Client.distance_matrix" />
       </list>
     </option>
   </inspection_tool>
