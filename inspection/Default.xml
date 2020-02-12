@@ -17,6 +17,7 @@
         <option value="mainapp.models.Irmao.objects" />
         <option value="googlemaps.client.Client.distance_matrix" />
         <option value="mainapp.models.Uf.objects" />
+        <option value="mainapp.models.Distancia.objects" />
       </list>
     </option>
   </inspection_tool>
