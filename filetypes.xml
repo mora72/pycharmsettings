@@ -4,6 +4,7 @@
     <extensionMap>
       <mapping pattern="testefile" type="PLAIN_TEXT" />
       <mapping pattern="arquivotextoteste" type="PLAIN_TEXT" />
+      <mapping pattern="save create table filmes" type="SQL" />
     </extensionMap>
   </component>
 </application>
