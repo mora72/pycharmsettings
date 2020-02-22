@@ -33,6 +33,7 @@
         <option value="mainapp.models.Uf.objects" />
         <option value="mainapp.models.Distancia.objects" />
         <option value="api.core.models.Cliente.objects" />
+        <option value="core.models.Filmes.objects" />
       </list>
     </option>
   </inspection_tool>
