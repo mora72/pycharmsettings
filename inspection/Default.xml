@@ -35,6 +35,7 @@
         <option value="api.core.models.Cliente.objects" />
         <option value="core.models.Filmes.objects" />
         <option value="api.api.urls.core" />
+        <option value="core.models.CoreFilmes.objects" />
       </list>
     </option>
   </inspection_tool>
