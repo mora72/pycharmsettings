@@ -39,6 +39,7 @@
         <option value="core.models.Grupo.objects" />
         <option value="core.models.Uf.objects" />
         <option value="core.models.Integrante.objects" />
+        <option value="core.models.Distancia.objects" />
       </list>
     </option>
   </inspection_tool>
