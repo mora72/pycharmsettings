@@ -36,6 +36,9 @@
         <option value="core.models.Filmes.objects" />
         <option value="api.api.urls.core" />
         <option value="core.models.CoreFilmes.objects" />
+        <option value="core.models.Grupo.objects" />
+        <option value="core.models.Uf.objects" />
+        <option value="core.models.Integrante.objects" />
       </list>
     </option>
   </inspection_tool>
