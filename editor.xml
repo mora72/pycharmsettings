@@ -4,4 +4,11 @@
     <option name="FONT_FAMILY" value="Fira Code Medium" />
     <option name="LINE_SPACING" value="1.3" />
   </component>
+  <component name="TodoConfiguration">
+    <pattern pattern="\b(todo|fixme)\b.*" />
+    <pattern pattern="*.pck1" />
+    <filter name="Filtra pck1">
+      <pattern index="1" />
+    </filter>
+  </component>
 </application>
