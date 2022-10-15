@@ -1,5 +1,8 @@
 <application>
   <component name="kite">
+    <option name="startKiteAtStartup" value="false" />
     <option name="showWelcomeNotification" value="false" />
+    <option name="useNewCompletions" value="false" />
+    <option name="kiteUnavailableShown" value="true" />
   </component>
 </application>
